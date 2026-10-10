@@ -10,3 +10,9 @@
 - Source code is public; no secrets or personal data are intentionally included.
 
 The project count refers to separate usable HTML project pages, not 600 different algorithms.
+
+## 2026-10-09 — Concurrent 500-mission expansion discovered
+
+- Verified an additional 500 distinct game pages at `hourly-lab/games/`, plus catalog `catalog-games-001-500.json`.
+- Updated browse directory to show the actual 1,100 project pages (100 utility apps + 1,000 games) in 26 game families.
+- Both mission sets use the same game engine; these are separate playable configurations, not 1,000 independent engines.
