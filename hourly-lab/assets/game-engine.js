@@ -33,6 +33,9 @@ const $=id=>document.getElementById(id);
 function shuffle(items){for(let i=items.length-1;i>0;i--){let j=Math.floor(Math.random()*(i+1));[items[i],items[j]]=[items[j],items[i]]}return items}
 function elem(tag,text,cls){let e=document.createElement(tag);if(text!==undefined)e.textContent=text;if(cls)e.className=cls;return e}
 function mount(config){
+// The second 500-mission collection includes an explicit rounds property.
+// Offset its deterministic question seed to keep it distinct from the first collection.
+if(Object.prototype.hasOwnProperty.call(config,"rounds"))config.variant=Number(config.variant)+20;
 const box=$("game");if(!box)return;let score=0,round=0,busy=false;const quizModes=new Set(["add","subtract","multiply","divide","powers","fractions","percent","linear","sequence","prime","factors","median","ratio","geometry","capitals","science","coding","vocabulary","scramble","binary","roman"]);
 function head(title,desc){box.replaceChildren();box.append(elem("h2",title),elem("p",desc,"muted"))}
 function btn(label,onClick){let b=elem("button",label);b.type="button";b.addEventListener("click",onClick);return b}
@@ -59,12 +62,12 @@ function draw(msg="Your turn (X)."){head("Tic Tac Toe",msg);let grid=elem("div",
 draw();return;
 }
 if(config.mode==="pairs"){
-let size=config.variant%3===0?8:6;let deck=shuffle([...Array.from({length:size},(_,i)=>i),...Array.from({length:size},(_,i)=>i)]);let opened=[],found=new Set(),turns=0,locked=false;const symbols=["🍎","🌟","🚀","🐢","🎨","🌈","🦋","🎵"];
+let size=config.variant%4<2?6:8;let deck=shuffle([...Array.from({length:size},(_,i)=>i),...Array.from({length:size},(_,i)=>i)]);let opened=[],found=new Set(),turns=0,locked=false;const palettes=[["🍎","🌟","🚀","🐢","🎨","🌈","🦋","🎵"],["🐬","🦀","🐼","🦊","🦄","🐞","🦉","🐸"],["⚽","🏆","🏀","🎯","🥎","🏸","🎲","🎳"],["🍍","🍉","🥨","🥕","🍇","🥑","🍰","🥝"],["🌎","🌙","☀️","⭐","🌋","🌊","🌲","❄️"],["🎸","🎺","🪘","🎻","🎹","🎷","📯","🎤"],["🚕","🚆","🚴","✈️","🚢","🚲","🚜","🚁"],["🧪","🔭","🧬","🧲","🪐","💡","⚙️","📡"],["🧩","📚","✏️","🖍️","📏","🗺️","✂️","🎨"],["🌻","🌷","🌼","🍀","🌸","🌺","🌵","🌿"]];const symbols=palettes[Math.floor(config.variant/4)%palettes.length];
 function draw(){head("Memory Match",`${found.size}/${size} pairs found · ${turns} tries`);let grid=elem("div",undefined,"pairs");deck.forEach((x,i)=>{let visible=found.has(x)||opened.includes(i);let b=btn(visible?symbols[x]:"?",()=>{if(locked||found.has(x)||opened.includes(i))return;opened.push(i);draw();if(opened.length===2){turns++;let [a,b]=opened;if(deck[a]===deck[b]){found.add(deck[a]);opened=[];draw()}else{locked=true;setTimeout(()=>{opened=[];locked=false;draw()},700)}}});grid.append(b)});box.append(grid);if(found.size===size)box.append(btn("New board",()=>{deck=shuffle(deck);opened=[];found=new Set();turns=0;draw()}))}
 draw();return;
 }
 if(config.mode==="reaction"){
-let state="idle",timer=null,start=0,best=Infinity,goal=Math.max(170,460-config.variant*14);function draw(msg=`Target: ${goal} ms or faster. Tap Start, wait for green, then react!`){head("Reaction Challenge",msg);const action=btn(state==="idle"?"Start":state==="waiting"?"Wait…":"TAP NOW!",()=>{if(state==="idle"){state="waiting";draw("Wait until the button changes to TAP NOW!");timer=setTimeout(()=>{state="go";start=performance.now();draw("GO!")},650+Math.floor(Math.random()*2200))}else if(state==="waiting"){clearTimeout(timer);state="idle";draw("Too soon! Try again.")}else{let ms=Math.round(performance.now()-start);best=Math.min(ms,best);state="idle";draw(`Reaction: ${ms} ms. Best: ${best} ms. Goal ${goal} ms: ${ms<=goal?"met!":"keep practicing."}`)}});if(state==="go")action.style.background="#15803d";box.append(action)}
+let state="idle",timer=null,start=0,best=Infinity,goal=Math.max(120,460-config.variant*8);function draw(msg=`Target: ${goal} ms or faster. Tap Start, wait for green, then react!`){head("Reaction Challenge",msg);const action=btn(state==="idle"?"Start":state==="waiting"?"Wait…":"TAP NOW!",()=>{if(state==="idle"){state="waiting";draw("Wait until the button changes to TAP NOW!");timer=setTimeout(()=>{state="go";start=performance.now();draw("GO!")},650+Math.floor(Math.random()*2200))}else if(state==="waiting"){clearTimeout(timer);state="idle";draw("Too soon! Try again.")}else{let ms=Math.round(performance.now()-start);best=Math.min(ms,best);state="idle";draw(`Reaction: ${ms} ms. Best: ${best} ms. Goal ${goal} ms: ${ms<=goal?"met!":"keep practicing."}`)}});if(state==="go")action.style.background="#15803d";box.append(action)}
 draw();return;
 }
 head("Unavailable game","This game mode is not currently available.");
