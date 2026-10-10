@@ -1,13 +1,13 @@
-# 1 Million Games — Apps & Games Lab
+# 1 Million Games 🎮
 
-A growing, public collection of useful, offline-first browser applications and mini-games.
+A public collection of **100 imported browser tools**, with more original games and apps being added.
 
-## Browse
+## Where are the games/apps?
 
-Open [`index.html`](index.html) for the app directory or browse [`hourly-lab/projects/`](hourly-lab/projects/) for individual HTML projects.
+- **[Browse all available apps in the directory](hourly-lab/index.html)** (download or use GitHub Pages to run HTML).
+- **[Open the source folders](hourly-lab/projects/)** — every project has its own `index.html`.
+- **[Project inventory](hourly-lab/INDEX.md)**.
 
-All examples use synthetic/sample data. Do not place secrets, credentials, personal information or API keys in this public repository.
+> GitHub's code viewer displays HTML source. To actually run an app, download the repo as ZIP and open `hourly-lab/index.html` locally. You can also enable GitHub Pages (Settings → Pages → Deploy from main branch) to host a playable website.
 
-## Development
-
-The collection is expanded in verified batches. Each project is intended to be usable as a standalone local HTML file. Basic computation checks do not constitute cross-browser testing.
+Only public code and synthetic examples belong here. Never commit passwords, tokens, keys, private identifiers, or user information.
