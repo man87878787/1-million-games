@@ -133,3 +133,9 @@ The code on this branch is **public**, while personal information and credential
 ## Testing status
 
 Each project was executed with its bundled demo inputs in a JavaScript smoke test during creation. This catches many computation exceptions but does not prove browser compatibility, edge cases, accessibility or security. Carry out manual browser checks before relying on any calculator.
+
+## 500 game missions (2026-10-09)
+
+The `hourly-lab/games/` folder contains **500 working game-page configurations** across **25 shared gameplay modes**, 20 challenges per mode. Their core rules reuse `assets/game-engine.js`. These are 500 distinct playable missions, not 500 independent game engines.
+
+Browse them through [the searchable collection](index.html) or [the game catalog](catalog-games-001-500.json).

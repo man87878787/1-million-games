@@ -1,13 +1,23 @@
 # 1 Million Games 🎮
 
-A public collection of **100 imported browser tools**, with more original games and apps being added.
+Welcome to a public, browser-based collection of **600 playable projects**: **100 practical tools** and **500 game missions**.
 
-## Where are the games/apps?
+> Transparency: the 500 missions use 25 gameplay families, with 20 playable mission configurations per family. They are not 500 unrelated game engines.
 
-- **[Browse all available apps in the directory](hourly-lab/index.html)** (download or use GitHub Pages to run HTML).
-- **[Open the source folders](hourly-lab/projects/)** — every project has its own `index.html`.
-- **[Project inventory](hourly-lab/INDEX.md)**.
+## Get playing
 
-> GitHub's code viewer displays HTML source. To actually run an app, download the repo as ZIP and open `hourly-lab/index.html` locally. You can also enable GitHub Pages (Settings → Pages → Deploy from main branch) to host a playable website.
+1. Open [the searchable library](hourly-lab/index.html) on a GitHub Pages deployment, or download the repository as ZIP and open the file locally.
+2. Search by game, category, or skill. Choose any game or app to launch it.
+3. All games run in your browser with local interactions and synthetic examples. No sign-in required.
 
-Only public code and synthetic examples belong here. Never commit passwords, tokens, keys, private identifiers, or user information.
+On GitHub's source-code view, clicking an HTML file displays its **code**, not the playable game. To host a clickable site, enable **GitHub Pages → Deploy from a branch → main → /(root)** under this repository's settings.
+
+## Library
+
+- [Game and app browser](hourly-lab/index.html)
+- [Games folder](hourly-lab/games/)
+- [Original 100 tool apps](hourly-lab/projects/)
+- [Master inventory](hourly-lab/INDEX.md)
+- [Security notes](hourly-lab/SECURITY.md)
+
+Security: source is **PUBLIC**. Keep tokens, credentials, API keys, passwords, email addresses, and personal information outside this repo. Use synthetic examples only.

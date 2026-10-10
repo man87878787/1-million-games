@@ -37,12 +37,12 @@ const box=$("game");if(!box)return;let score=0,round=0,busy=false;const quizMode
 function head(title,desc){box.replaceChildren();box.append(elem("h2",title),elem("p",desc,"muted"))}
 function btn(label,onClick){let b=elem("button",label);b.type="button";b.addEventListener("click",onClick);return b}
 if(quizModes.has(config.mode)){
-const total=10;
+const total=Math.max(3,Math.min(30,Number(config.rounds)||10));
 function show(){busy=false;head(`Round ${round+1} of ${total} · Score ${score}`,config.description);let question=makeQuestion(config.mode,config.variant,round);box.append(elem("h3",question.prompt));let feedback=elem("p","","feedback");let controls=elem("div",undefined,"controls");box.append(controls,feedback);let input;
 function mark(val){if(busy)return;busy=true;let ok=String(val).trim().toLowerCase().replace(/\s+/g," ")===question.answer.trim().toLowerCase().replace(/\s+/g," ");if(ok)score++;feedback.textContent=ok?"✓ Correct!":"Answer: "+question.answer;feedback.style.color=ok?"#15803d":"#b45309";for(const b of controls.querySelectorAll("button,input"))b.disabled=true;setTimeout(()=>{round++;if(round>=total)finish();else show()},900)}
 if(question.options){for(const x of question.options)controls.append(btn(x,()=>mark(x)))}else{input=elem("input");input.type="text";input.setAttribute("aria-label","Your answer");input.placeholder="Type your answer";controls.append(input,btn("Check answer",()=>mark(input.value)));input.addEventListener("keydown",e=>{if(e.key==="Enter")mark(input.value)});input.focus()}
 const help=btn("Hint",()=>{help.disabled=true;box.append(elem("p",question.hint,"muted"))});box.append(help)}
-function finish(){head("Mission complete! 🎉",`You answered ${score} out of ${total} correctly.`);box.append(btn("Play again",()=>{round=0;score=0;show()}))}
+function finish(){head(score>=Math.ceil(total*.8)?"Mission complete! 🎉":"Training complete",`You answered ${score} out of ${total} correctly. Mastery goal: ${Math.ceil(total*.8)} correct.`);box.append(btn("Play again",()=>{round=0;score=0;show()}))}
 show();return;
 }
 if(config.mode==="guess"){
@@ -64,7 +64,7 @@ function draw(){head("Memory Match",`${found.size}/${size} pairs found · ${turn
 draw();return;
 }
 if(config.mode==="reaction"){
-let state="idle",timer=null,start=0,best=Infinity;function draw(msg="Tap Start, wait for green, then tap as quickly as you can."){head("Reaction Challenge",msg);const action=btn(state==="idle"?"Start":state==="waiting"?"Wait…":"TAP NOW!",()=>{if(state==="idle"){state="waiting";draw("Wait until the button changes to TAP NOW!");timer=setTimeout(()=>{state="go";start=performance.now();draw("GO!")},650+Math.floor(Math.random()*2200))}else if(state==="waiting"){clearTimeout(timer);state="idle";draw("Too soon! Try again.")}else{let ms=Math.round(performance.now()-start);best=Math.min(ms,best);state="idle";draw(`Reaction: ${ms} ms. Best: ${best} ms.`)}});if(state==="go")action.style.background="#15803d";box.append(action)}
+let state="idle",timer=null,start=0,best=Infinity,goal=Math.max(170,460-config.variant*14);function draw(msg=`Target: ${goal} ms or faster. Tap Start, wait for green, then react!`){head("Reaction Challenge",msg);const action=btn(state==="idle"?"Start":state==="waiting"?"Wait…":"TAP NOW!",()=>{if(state==="idle"){state="waiting";draw("Wait until the button changes to TAP NOW!");timer=setTimeout(()=>{state="go";start=performance.now();draw("GO!")},650+Math.floor(Math.random()*2200))}else if(state==="waiting"){clearTimeout(timer);state="idle";draw("Too soon! Try again.")}else{let ms=Math.round(performance.now()-start);best=Math.min(ms,best);state="idle";draw(`Reaction: ${ms} ms. Best: ${best} ms. Goal ${goal} ms: ${ms<=goal?"met!":"keep practicing."}`)}});if(state==="go")action.style.background="#15803d";box.append(action)}
 draw();return;
 }
 head("Unavailable game","This game mode is not currently available.");
