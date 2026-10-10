@@ -1,23 +1,25 @@
-# 1 Million Games 🎮
+# 🎮 1 Million Games
 
-Welcome to a public, browser-based collection of **600 playable projects**: **100 practical tools** and **500 game missions**.
+**600 projects live in this public repo:** 100 practical browser apps plus 500 playable mini-game missions.
 
-> Transparency: the 500 missions use 25 gameplay families, with 20 playable mission configurations per family. They are not 500 unrelated game engines.
+## Find everything
 
-## Get playing
+- [Search all 600 apps and games](hourly-lab/index.html)
+- [Browse the 500 game files](hourly-lab/games/)
+- [Browse the 100 utility apps](hourly-lab/projects/)
+- [Read the complete project inventory](hourly-lab/INDEX.md)
+- [Inspect the reusable JavaScript game engine](hourly-lab/assets/game-engine.js)
 
-1. Open [the searchable library](hourly-lab/index.html) on a GitHub Pages deployment, or download the repository as ZIP and open the file locally.
-2. Search by game, category, or skill. Choose any game or app to launch it.
-3. All games run in your browser with local interactions and synthetic examples. No sign-in required.
+## Play the games
 
-On GitHub's source-code view, clicking an HTML file displays its **code**, not the playable game. To host a clickable site, enable **GitHub Pages → Deploy from a branch → main → /(root)** under this repository's settings.
+GitHub's code viewer shows HTML source instead of running web pages. To play, select **Code → Download ZIP**, extract it, and open the top-level `index.html` in a browser. Alternatively, go to **Settings → Pages**, choose **Deploy from a branch**, set **main** and **/(root)**, and save. Once GitHub Pages finishes publishing, your directory will be available as a website.
 
-## Library
+## What the 500 games contain
 
-- [Game and app browser](hourly-lab/index.html)
-- [Games folder](hourly-lab/games/)
-- [Original 100 tool apps](hourly-lab/projects/)
-- [Master inventory](hourly-lab/INDEX.md)
-- [Security notes](hourly-lab/SECURITY.md)
+There are **25 gameplay types with 20 separate mission variations each** (not 500 different engines), including math, word challenges, trivia, Tic Tac Toe, memory cards and reaction timing.
 
-Security: source is **PUBLIC**. Keep tokens, credentials, API keys, passwords, email addresses, and personal information outside this repo. Use synthetic examples only.
+The original 100 utilities are standalone HTML files. The 500 games link to the shared `hourly-lab/assets/game-engine.js` and `game-style.css` files. Keep the folder structure when downloading.
+
+## Security and quality
+
+This repository is **public**. No passwords, keys, tokens, secrets or real personal account details should be placed here. Synthetic sample data is used. Game questions passed 4,200 generator data-shape smoke checks; **full browser gameplay tests remain pending**. These are learning/demo projects, not audited production software.
